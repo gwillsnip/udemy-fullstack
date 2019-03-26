@@ -1,2 +1,17 @@
-language: node_js
-services: docker
+anguage: node_js
+node_js:
+  - 'stable'
+cache:
+  directories:
+    - node_modules
+script:
+  - npm test
+  - npm run build
+deploy:
+  provider: surge
+  skip_cleanup: true
+  domain: damin.surge.sh
+  project: ./build/
+on:
+  branch: master
+#important
