@@ -1,4 +1,3 @@
-//authentication lo
 'use strict';
 const express = require('express');
 const router = express.Router();
@@ -10,7 +9,7 @@ const router = express.Router();
 //@access Users
 router.get('/test', (req, res) =>
     (res.json({
-            message: 'User Works'
+            message: 'Post Works'
         }
 
 

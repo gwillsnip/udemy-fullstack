@@ -1,11 +1,24 @@
 import React from 'react';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink
+} from 'reactstrap';
 
-const CustomNavbar = () => {
+const CustomNavbar = props => {
   return (
     <div>
-      <nav>
-        <h1>new</h1>
-      </nav>
+      <Navbar className="faded" light expand="md">
+        <NavbarBrand href="/" className="mr-auto">
+          Damin Consulting
+        </NavbarBrand>
+        <NavbarToggler />
+        <Collapse navbar />
+      </Navbar>
     </div>
   );
 };
