@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const router = express.Router();
 const gravatar = require('gravatar');
@@ -8,13 +6,14 @@ const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const passport = require('passport');
 
-//load users Model
-const User = require('../../models/User');
+
 
 // Load Input Validation
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
 
+//load users Model
+const User = require('../../models/User');
 
 // @route POST api/users/test
 //@desc  Register users route
@@ -60,7 +59,7 @@ router.post('/register', (req, res) => {
         .catch(err => res.status(404).json(err))
 });
 
-// @route GET api/user/login
+//@route GET api/user/login
 //@desc  Login user /Returning JWT token
 //@access Public
 router.post('/login', (req, res) => {
@@ -69,7 +68,6 @@ router.post('/login', (req, res) => {
     //Check Validation
     if (!isValid) {
         return res.status(400).json(errors);
-
     }
 
     const email = req.body.email;
@@ -80,54 +78,43 @@ router.post('/login', (req, res) => {
         .then(user => {
             if (!user) {
                 errors.email = 'Users not Found'
-                return res.status(400).json(errors)
+                return res.status(404).json(errors)
             }
             //check password
-            bcrypt.compare(password, user.password)
-                .then(isMatch => {
-                    if (isMatch) {
-                        //User matched; 
-                        const payload = {
-                                id: user.id,
-                                name: user.name,
-                                avatar: user.avatar
-                            } // create JWT payload
+            bcrypt.compare(password, user.password).then(isMatch => {
+                if (isMatch) {
+                    //User matched;
+                    const payload = { id: user.id, name: user.name, avatar: user.avatar } // create JWT payload
 
-                        //sign the token
-                        jwt.sign(
-                            payload,
-                            keys.secretOrKey, { expiresIn: 3600 },
-                            (err, token) => {
-                                res.json({
-                                    success: true,
-                                    token: 'Bearer' + token
-                                })
-                            });
-
-                    } else {
-                        errors.password = 'Password is incorrect';
-                        return res.status(400).json(errors);
-                    }
-                })
-                .catch(err => res.status(404).json(err))
-        })
-        .catch(err => res.status(404).json(err))
+                    //sign the token
+                    jwt.sign(
+                        payload,
+                        keys.secretOrKey, { expiresIn: 3600 },
+                        (err, token) => {
+                            res.json({
+                                success: true,
+                                token: 'Bearer ' + token
+                            })
+                        });
+                } else {
+                    errors.password = 'Password is incorrect';
+                    return res.status(400).json(errors);
+                }
+            });
+        });
 });
 
 
 // @route GET api/user/current
 //@desc  Login user /Returning current User
 //@access Private
-router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-    res.json({
-        id: req.user.id,
-        name: req.user.name,
-        email: req.user.email
-    })
-});
+router.get('/current',
+    passport.authenticate('jwt', { session: false }), (req, res) => {
+        res.json({
+            id: req.user.id,
+            name: req.user.name,
+            email: req.user.email
+        });
 
-
-
-
-
+    });
 module.exports = router;

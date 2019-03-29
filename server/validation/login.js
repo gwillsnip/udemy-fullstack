@@ -1,5 +1,3 @@
-'use strict';
-
 const Validator = require('validator')
 const isEmpty = require('./is-empty')
 
@@ -28,7 +26,7 @@ module.exports = function validateLoginInput(data) {
 
     return {
         errors,
-        isValid: isEmpty(errors)
+        isValid: isEmpty(errors, 'Errors found in validateLoginInput')
     }
 
 };

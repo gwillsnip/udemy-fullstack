@@ -27,7 +27,6 @@ const db = mongoose.connect(mongod.mongoURI, { useNewUrlParser: true })
     .catch(err => err.message)
 
 //Passport middleware
-
 app.use(passport.initialize())
 
 //Passport Config
@@ -35,8 +34,8 @@ require('./config/passport')(passport);
 
 //Use Routes 
 app.use('/api/users', users);
-app.use('/api/post', post);
 app.use('/api/profile', profile);
+app.use('/api/post', post);
 
 
 const port = process.env.PORT || 5000;
