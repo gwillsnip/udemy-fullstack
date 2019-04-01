@@ -11,9 +11,7 @@ module.exports = function validateExperienceInput(data) {
     data.company = !isEmpty(data.company) ? data.company : '';
     data.from = !isEmpty(data.from) ? data.from : '';
 
-
     //check the validation of the name and password
-
     if (Validator.isEmpty(data.title)) {
         errors.title = 'Title field  is required';
     }
