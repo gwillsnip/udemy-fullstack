@@ -11,7 +11,7 @@ const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
 const post = require('./routes/api/post');
 
-
+// Instantiate application
 const app = express();
 
 //Body parser middleware
