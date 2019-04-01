@@ -79,7 +79,6 @@ router.post(
 
                     // Add user id to likes array
                     post.likes.unshift({ user: req.user.id });
-
                     post.save().then(post => res.json(post));
                 })
                 .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
@@ -131,14 +130,12 @@ router.post(
                     }
                     // Add user id to likes array
                     post.likes.unshift({ user: req.user.id });
-
                     post.save().then(post => res.json(post));
                 })
                 .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
         });
     }
 );
-
 // @Route Post api/posts /unlike/:id
 //@desc   unLike Id
 //@access private
@@ -165,7 +162,6 @@ router.post('/unlike/:id', passport.authenticate('jwt', { session: false }),
         });
     }
 );
-
 
 // @Route Post api/posts /comment/:id
 //@desc   Add comment to Post
