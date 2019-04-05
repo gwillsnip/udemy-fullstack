@@ -1,4 +1,4 @@
 module.exports = {
-    mongoURI: 'mongodb://localhost/fullstract',
-    secretOrKey: 'secret'
+   mongoURI: 'mongodb://localhost/fullstract',
+   secretOrKey: 'secret'
 };
