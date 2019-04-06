@@ -8,6 +8,7 @@ import InputGroup from '../common/InputGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import { createProfile, getCurrentProfile } from '../../actions/profileActions';
 import isEmpty from '../../validation/is-empty';
+
 class EditProfile extends Component {
   constructor(props) {
     super(props);
@@ -32,18 +33,20 @@ class EditProfile extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.getCurrentProfile();
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
     //check if the profile has come in from the state
-    if (nextProps.profile) {
+    if (nextProps.profile.profile) {
       const profile = nextProps.profile.profile;
 
       //Bring skills array back to comma seprated values
-      const skillsCSV = profile.skill.join(',');
+      const skillsCSV = profile.skills.join(',');
 
       //If profile field is empty, make an empty string
       profile.company = !isEmpty(profile.company) ? profile.company : '';
@@ -70,6 +73,21 @@ class EditProfile extends Component {
         : '';
 
       //Set component field state
+      this.setState({
+        handle: profile.handle,
+        company: profile.company,
+        website: profile.website,
+        location: profile.location,
+        status: profile.status,
+        skills: profile.skills,
+        githubusername: profile.githubusername,
+        bio: profile.bio,
+        twitter: profile.twitter,
+        facebook: profile.facebook,
+        linkedin: profile.linkedin,
+        youtube: profile.youtube,
+        instagram: profile.instagram
+      });
     }
   }
 
@@ -274,7 +292,7 @@ class EditProfile extends Component {
 }
 
 EditProfile.propTypes = {
-  CreateProfile: PropTypes.func.isRequired,
+  createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
