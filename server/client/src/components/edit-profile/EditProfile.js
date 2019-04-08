@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
@@ -113,7 +113,9 @@ class EditProfile extends Component {
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   }
 
   render() {
@@ -131,8 +133,7 @@ class EditProfile extends Component {
             value={this.state.twitter}
             onChange={this.onChange}
             error={errors.twitter}
-          />
-
+          />{' '}
           <InputGroup
             placeholder="Facebook Page URL"
             name="facebook"
@@ -140,8 +141,7 @@ class EditProfile extends Component {
             value={this.state.facebook}
             onChange={this.onChange}
             error={errors.facebook}
-          />
-
+          />{' '}
           <InputGroup
             placeholder="Linkedin Profile URL"
             name="linkedin"
@@ -149,8 +149,7 @@ class EditProfile extends Component {
             value={this.state.linkedin}
             onChange={this.onChange}
             error={errors.linkedin}
-          />
-
+          />{' '}
           <InputGroup
             placeholder="YouTube Channel URL"
             name="youtube"
@@ -158,8 +157,7 @@ class EditProfile extends Component {
             value={this.state.youtube}
             onChange={this.onChange}
             error={errors.youtube}
-          />
-
+          />{' '}
           <InputGroup
             placeholder="Instagram Page URL"
             name="instagram"
@@ -167,7 +165,7 @@ class EditProfile extends Component {
             value={this.state.instagram}
             onChange={this.onChange}
             error={errors.instagram}
-          />
+          />{' '}
         </div>
       );
     }
@@ -190,9 +188,11 @@ class EditProfile extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Edit Your Profile</h1>
-
-              <small className="d-block pb-3">* = required fields</small>
+              <Link to="/dashboard" className="btn btn-light">
+                Go Back{' '}
+              </Link>{' '}
+              <h1 className="display-4 text-center"> Edit Your Profile </h1>{' '}
+              <small className="d-block pb-3"> * = required fields </small>{' '}
               <form onSubmit={this.onSubmit}>
                 <TextFieldGroup
                   placeholder="* Profile Handle"
@@ -242,7 +242,7 @@ class EditProfile extends Component {
                   onChange={this.onChange}
                   error={errors.skills}
                   info="Please use comma separated values (eg.
-                    HTML,CSS,JavaScript,PHP"
+         HTML, CSS, JavaScript, PHP "
                 />
                 <TextFieldGroup
                   placeholder="Github Username"
@@ -260,7 +260,6 @@ class EditProfile extends Component {
                   error={errors.bio}
                   info="Tell us a little about yourself"
                 />
-
                 <div className="mb-3">
                   <button
                     type="button"
@@ -271,20 +270,20 @@ class EditProfile extends Component {
                     }}
                     className="btn btn-light"
                   >
-                    Add Social Network Links
-                  </button>
-                  <span className="text-muted">Optional</span>
-                </div>
-                {socialInputs}
+                    Add Social Network Links{' '}
+                  </button>{' '}
+                  <span className="text-muted"> Optional </span>{' '}
+                </div>{' '}
+                {socialInputs}{' '}
                 <input
                   type="submit"
                   value="Submit"
                   className="btn btn-info btn-block mt-4"
                 />
-              </form>
-            </div>
-          </div>
-        </div>
+              </form>{' '}
+            </div>{' '}
+          </div>{' '}
+        </div>{' '}
       </div>
     );
   }

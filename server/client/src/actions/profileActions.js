@@ -40,7 +40,7 @@ export const createProfile = (profileData, history) => dispatch => {
       );
 };
 
-//Add Experience
+// Add experience
 export const addExperience = (expData, history) => dispatch => {
    axios
       .post('/api/profile/experience', expData)
@@ -53,7 +53,7 @@ export const addExperience = (expData, history) => dispatch => {
       );
 };
 
-//Add Education
+// Add education
 export const addEducation = (eduData, history) => dispatch => {
    axios
       .post('/api/profile/education', eduData)
@@ -66,23 +66,45 @@ export const addEducation = (eduData, history) => dispatch => {
       );
 };
 
-// Profile loading
-export const setProfileLoading = () => {
-   return {
-      type: PROFILE_LOADING
-   };
+// Delete Experience
+export const deleteExperience = (id, history) => dispatch => {
+   axios
+      .delete(`/api/profile/experience/${id}`)
+      .then(res =>
+         dispatch({
+            type: GET_PROFILE,
+            payload: res.data
+         })
+      )
+      .catch(err =>
+         dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+         })
+      );
 };
 
-// Clear profile
-export const clearCurrentProfile = () => {
-   return {
-      type: CLEAR_CURRENT_PROFILE
-   };
+// Delete Education
+export const deleteEducation = id => dispatch => {
+   axios
+      .delete(`/api/profile/education/${id}`)
+      .then(res =>
+         dispatch({
+            type: GET_PROFILE,
+            payload: res.data
+         })
+      )
+      .catch(err =>
+         dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+         })
+      );
 };
 
-//Delete account and profile
+// Delete account & profile
 export const deleteAccount = () => dispatch => {
-   if (window.confirm('Are you sure ? This can NOT be undone')) {
+   if (window.confirm('Are you sure? This can NOT be undone!')) {
       axios
          .delete('/api/profile')
          .then(res =>
@@ -98,4 +120,18 @@ export const deleteAccount = () => dispatch => {
             })
          );
    }
+};
+
+// Profile loading
+export const setProfileLoading = () => {
+   return {
+      type: PROFILE_LOADING
+   };
+};
+
+// Clear profile
+export const clearCurrentProfile = () => {
+   return {
+      type: CLEAR_CURRENT_PROFILE
+   };
 };
